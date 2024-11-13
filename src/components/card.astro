@@ -1,0 +1,13 @@
+---
+interface Props {
+  'data-swapy-item'?: string
+}
+
+const { 'data-swapy-item': swapy } = Astro.props
+---
+
+<article data-swapy-item={swapy} class="card relative h-full border border-neutral bg-base-100">
+  <div class="card-body justify-center p-4">
+    <slot />
+  </div>
+</article>

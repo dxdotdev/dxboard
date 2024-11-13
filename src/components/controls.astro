@@ -1,0 +1,29 @@
+---
+import { BadgePlus, GripHorizontal } from 'lucide-solid'
+
+import Card from './card.astro'
+---
+
+<Card data-swapy-item="controls">
+  <div class="absolute right-2 top-2" data-swapy-handle>
+    <GripHorizontal class="text-neutral" />
+  </div>
+
+  <button class="btn btn-outline btn-primary">
+    <BadgePlus class="w-5" />New Card
+  </button>
+
+  <div class="form-control">
+    <label class="label cursor-pointer">
+      <span class="label-text w-full">Slots</span>
+
+      <input x-model="slots" type="range" class="range range-primary" />
+    </label>
+
+    <label class="label cursor-pointer">
+      <span class="label-text">Edit mode</span>
+
+      <input x-model="editMode" type="checkbox" class="toggle toggle-primary" />
+    </label>
+  </div>
+</Card>

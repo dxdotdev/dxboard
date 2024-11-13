@@ -1,5 +1,6 @@
 ---
-
+import Controls from 'src/components/controls.astro'
+import Slot from 'src/components/slot.astro'
 ---
 
 <html lang="en">
@@ -8,7 +9,20 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>dxboard</title>
+
+    <script>
+      import { createSwapy } from 'swapy'
+
+      const container = document.querySelector('.swapy')
+
+      document.addEventListener('alpine:init', () => {
+        setTimeout(() => {
+          const swapy = createSwapy(container)
+          swapy.enable(true)
+        }, 10)
+      })
+    </script>
 
     <style>
       .dots {
@@ -20,10 +34,20 @@
 
   <body class="flex min-h-dvh p-10">
     <main
-      class="dots grid min-h-full w-full min-w-72 grid-rows-3 gap-5 rounded-2xl border border-base-300 bg-base-200 p-5 shadow-inner sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-      <article class="card border border-neutral bg-base-100">
-        <div class="card-body p-4">askd</div>
-      </article>
+      x-data="{ editMode: $persist(false), slots: $persist(9) }"
+      class="dots swapy grid min-h-full w-full min-w-72 gap-5 rounded-2xl border border-base-300 bg-base-200 p-5 shadow-inner sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+      <template x-if="true">
+        <div
+          data-swapy-slot="0"
+          class="aspect-square rounded-2xl outline outline-offset-4 transition-all"
+          :class="editMode ? 'outline-primary/50' : 'outline-transparent'">
+          <Controls />
+        </div>
+      </template>
+
+      <template x-for="slot in (slots - 1)">
+        <Slot />
+      </template>
     </main>
   </body>
 </html>
